@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ZENITEX Production Control</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+</head>
+
+<body>
+    <header>
+        <div class="header-left">
+            <img src="images/logo.png" class="logo" alt="ZENITEX Logo">
+
+            <div>
+                <h1>ZENITEX</h1>
+                <p>Production Control</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="card">
+            <h2>📋 Current Production</h2>
+
+            <div class="current-status">
+                <span class="status-dot"></span>
+
+                <span id="currentStatusText">
+                    กำลังโหลดข้อมูล...
+                </span>
+            </div>
+
+            <div class="machine-select-box">
+                <label for="machineSelect">
+                    เลือกเครื่องผลิต
+                </label>
+
+                <select id="machineSelect">
+                    <option value="เครื่อง 1">เครื่อง 1</option>
+                    <option value="เครื่อง 2">เครื่อง 2</option>
+                    <option value="เครื่อง 3">เครื่อง 3</option>
+                </select>
+            </div>
+
+            <div class="section-title">📄 ข้อมูลออเดอร์</div>
+
+            <div class="current-grid">
+                <div class="item">
+                    <label>Order No</label>
+                    <span id="orderNo">-</span>
+                </div>
+
+                <div class="item">
+                    <label>Work No</label>
+                    <span id="workNo">-</span>
+                </div>
+
+                <div class="item">
+                    <label>Customer</label>
+                    <span id="customer">-</span>
+                </div>
+
+                <div class="item">
+                    <label>Worker</label>
+                    <span id="worker">-</span>
+                </div>
+            </div>
+
+            <hr class="section-divider">
+
+            <div class="section-title">📦 รายละเอียดสินค้า</div>
+
+            <div class="current-grid">
+                <div class="item">
+                    <label>เบอร์ผ้า</label>
+                    <span id="fabricNo">-</span>
+                </div>
+
+                <div class="item">
+                    <label>สี</label>
+                    <span id="color">-</span>
+                </div>
+
+                <div class="item">
+                    <label>ความหนา</label>
+                    <span id="thickness">-</span>
+                </div>
+
+                <div class="item">
+                    <label>หน้ากว้างสำเร็จ</label>
+                    <span id="width">-</span>
+                </div>
+
+                <div class="item">
+                    <label>น้ำหนักผ้า</label>
+                    <span id="weight">-</span>
+                </div>
+            </div>
+
+            <hr class="section-divider">
+
+            <div class="section-title">⚙️ การผลิต</div>
+
+            <div class="current-grid">
+                <div class="item">
+                    <label>เครื่อง</label>
+                    <span id="machine">-</span>
+                </div>
+
+                <div class="item">
+                    <label>ความเร็ว</label>
+                    <span id="speed">-</span>
+                </div>
+
+                <div class="item">
+                    <label>ความยาวออเดอร์</label>
+                    <span id="orderLength">-</span>
+                </div>
+
+                <div class="item">
+                    <label>จำนวนท่อน</label>
+                    <span id="rollCount">-</span>
+                </div>
+
+                <div class="item">
+                    <label>ความยาวรวม</label>
+                    <span id="totalLength">-</span>
+                </div>
+
+                <div class="item">
+                    <label>Forecast</label>
+                    <span id="forecast">-</span>
+                </div>
+
+                <div class="item">
+                    <label>เริ่มผลิต</label>
+                    <span id="startDate">-</span>
+                </div>
+
+                <div class="item">
+                    <label>กำหนดเสร็จ</label>
+                    <span id="dueDate">-</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>🔄 Update Production Status</h2>
+
+            <div class="status-grid">
+                <button
+                    class="status-btn running active"
+                    data-status="กำลังดำเนินงาน"
+                    type="button"
+                >
+                    🟢 กำลังดำเนินงาน
+                </button>
+
+                <button
+                    class="status-btn delay"
+                    data-status="ล่าช้ากว่ากำหนด"
+                    type="button"
+                >
+                    🟠 ล่าช้ากว่ากำหนด
+                </button>
+
+                <button
+                    class="status-btn power"
+                    data-status="ไฟดับ"
+                    type="button"
+                >
+                    ⚡ ไฟดับ
+                </button>
+
+                <button
+                    class="status-btn sheet"
+                    data-status="เหตุขัดข้องที่ Sheet"
+                    type="button"
+                >
+                    📄 เหตุขัดข้องที่ Sheet
+                </button>
+
+                <button
+                    class="status-btn machine"
+                    data-status="เหตุขัดข้องที่เครื่อง"
+                    type="button"
+                >
+                    ⚙️ เหตุขัดข้องที่เครื่อง
+                </button>
+
+                <button
+                    class="status-btn finish"
+                    type="button"
+                >
+                    ✅ เสร็จสิ้น
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <div id="finishPopup" class="popup">
+        <div class="popup-box">
+            <div class="popup-header">
+                <h2>Finish Production</h2>
+
+                <button
+                    id="closePopup"
+                    type="button"
+                    aria-label="ปิด"
+                >
+                    &times;
+                </button>
+            </div>
+
+            <div class="popup-grid">
+                <div class="form-group">
+                    <label for="coatedLength">Coated Length</label>
+
+                    <input
+                        type="number"
+                        id="coatedLength"
+                        min="0"
+                        step="0.01"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="coatedLengthUnit">หน่วย</label>
+
+                    <select id="coatedLengthUnit">
+                        <option value="เมตร">เมตร</option>
+                        <option value="หลา">หลา</option>
+                        <option value="ฟุต">ฟุต</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="coatedWidth">Coated Width</label>
+
+                    <input
+                        type="number"
+                        id="coatedWidth"
+                        min="0"
+                        step="0.01"
+                        required
+                    >
+                </div>
+            </div>
+
+            <hr style="margin:25px 0;">
+
+            <h3>GSM (g/m²)</h3>
+
+            <div class="triple-grid">
+                <div class="form-group">
+                    <label for="gsmLeft">ซ้าย</label>
+
+                    <input
+                        type="number"
+                        id="gsmLeft"
+                        min="0"
+                        step="0.01"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="gsmCenter">กลาง</label>
+
+                    <input
+                        type="number"
+                        id="gsmCenter"
+                        min="0"
+                        step="0.01"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="gsmRight">ขวา</label>
+
+                    <input
+                        type="number"
+                        id="gsmRight"
+                        min="0"
+                        step="0.01"
+                        required
+                    >
+                </div>
+            </div>
+
+            <hr style="margin:25px 0;">
+
+            <h3>Coated Thickness (mm)</h3>
+
+            <div class="triple-grid">
+                <div class="form-group">
+                    <label for="thicknessLeft">ซ้าย</label>
+
+                    <input
+                        type="number"
+                        id="thicknessLeft"
+                        min="0"
+                        step="0.01"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="thicknessCenter">กลาง</label>
+
+                    <input
+                        type="number"
+                        id="thicknessCenter"
+                        min="0"
+                        step="0.01"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="thicknessRight">ขวา</label>
+
+                    <input
+                        type="number"
+                        id="thicknessRight"
+                        min="0"
+                        step="0.01"
+                        required
+                    >
+                </div>
+            </div>
+
+            <hr style="margin:25px 0;">
+
+            <h3>📋 Queue ถัดไป</h3>
+
+            <div class="queue-box">
+                <table id="queueTable">
+                    <thead>
+                        <tr>
+                            <th>คิว</th>
+                            <th>Work No</th>
+                            <th>Order No</th>
+                            <th>ลูกค้า</th>
+                        </tr>
+                    </thead>
+
+                    <tbody></tbody>
+                </table>
+            </div>
+
+            <h3 style="margin-top:20px;">
+                สถานะหลังขึ้นเครื่อง
+            </h3>
+
+            <select id="nextStatus" disabled>
+                <option value="รอดำเนินงาน">
+                    รอดำเนินงาน
+                </option>
+
+                <option value="กำลังดำเนินงาน">
+                    เริ่มผลิตทันที
+                </option>
+            </select>
+
+            <div class="popup-footer">
+                <button id="cancelPopup" type="button">
+                    ยกเลิก
+                </button>
+
+                <button id="saveFinish" type="button">
+                    บันทึก
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="statusPopup" class="popup">
+        <div class="popup-box">
+            <div class="popup-header">
+                <h2>Update Status</h2>
+
+                <button
+                    id="closeStatusPopup"
+                    type="button"
+                    aria-label="ปิด"
+                >
+                    &times;
+                </button>
+            </div>
+
+            <div class="form-group">
+                <label for="popupStatus">สถานะ</label>
+
+                <input
+                    type="text"
+                    id="popupStatus"
+                    readonly
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="statusRemark">หมายเหตุ</label>
+
+                <textarea
+                    id="statusRemark"
+                    placeholder="กรอกหมายเหตุ"
+                ></textarea>
+            </div>
+
+            <div class="popup-footer">
+                <button id="cancelStatusPopup" type="button">
+                    ยกเลิก
+                </button>
+
+                <button id="saveStatus" type="button">
+                    บันทึก
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
